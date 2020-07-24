@@ -2,7 +2,7 @@ name: Validate on Push
 
 on:
   push:
-    branches:
+    branches-ignore:
       - master
     types: ["closed"]
 jobs:
