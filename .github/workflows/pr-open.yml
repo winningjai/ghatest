@@ -2,14 +2,15 @@ name:  PR open
 on:
   pull_request:
     branches: [ "master" ]
+    types: [ "closed" ]
     paths:
       - .github/workflows/*.yml
       - ./**
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
-  DEPLOY: true 
 jobs:
   prequel:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,6 +25,7 @@ jobs:
   parser1:
     #if: github.payload.pull_request.title.split('-')[0] == 'deploy'
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
@@ -51,10 +53,7 @@ jobs:
           script: |
             let deploy = true;
             core.setOutput('deploy',deploy);
-      - name: envi
-        run: echo Hello world 
-        env:
-          DEPLOY: 'TRUE' 
+
   Job11:
     needs: parser1
     strategy:
@@ -66,12 +65,3 @@ jobs:
        run: |
         echo env=${{ matrix.environment }}
         echo loc=${{ matrix.location }}
-  Job12:
-    needs: parser1
-    if: $DEPLOY == 'true'
-    runs-on: ubuntu-latest
-    steps:
-     - name: Output chello
-       run: |
-        echo env= "hellow"
-        #echo jai= $DEPLOY     
