@@ -51,6 +51,7 @@ jobs:
             let deploy = true;
             core.setOutput('deploy',deploy);
       - name: envi
+        run: echo Hello world 
         env:
           DEPLOY: 'TRUE' 
   Job11:
