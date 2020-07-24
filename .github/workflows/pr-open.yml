@@ -5,6 +5,16 @@ on:
     types: ["open"]
 
 jobs:
+  prequel:
+    runs-on: ubuntu-latest
+     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v1
+        id: matrixer
+        with:
+          script: |
+            let pr= context
+            print(context)
   parser1:
     runs-on: ubuntu-latest
     outputs:
