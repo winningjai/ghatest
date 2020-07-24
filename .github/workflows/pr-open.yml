@@ -16,7 +16,7 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= github.payload
+            let pr= github
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
@@ -34,7 +34,7 @@ jobs:
             let head =  context.payload.pull_request.title.split('-');
             let matrix = { 
               environment: ["dev"],
-              location:    ["westus2"]
+              location:    ["westus2", "eastus2"]
             };
             if( head != null && head[0] == 'dev' )
             {
