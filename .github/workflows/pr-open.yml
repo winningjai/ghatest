@@ -16,12 +16,12 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= context.payload
+            let pr= github.payload
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
   parser1:
-    if: context.payload.pull_request.title.split('-')[0] == 'deploy'
+    if: github.payload.pull_request.title.split('-')[0] == 'deploy'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
