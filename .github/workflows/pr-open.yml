@@ -55,4 +55,6 @@ jobs:
         with:
           script: |
             let value = matrix.environment
-            echo "${value}"
+            return value
+      - name: Get result
+        run: echo "${{steps.jai.outputs.result}}"
