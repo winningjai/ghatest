@@ -46,7 +46,7 @@ jobs:
   Job11:
     needs: parser1
     strategy:
-      matrix: ${{ fromJson(needs.parser.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.parser1.outputs.matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
