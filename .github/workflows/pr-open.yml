@@ -2,9 +2,10 @@ name:  SD Helm Deploy
 on:
   pull_request:
     branches: [ one ]
+    types: ["open"]
 
 jobs:
-  parser:
+  parser1:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
@@ -27,7 +28,7 @@ jobs:
               }
             }
             core.setOutput('matrix',matrix);
-  Job1:
+  Job11:
     needs: parser
     strategy:
       matrix: ${{ fromJson(needs.parser.outputs.matrix) }}
