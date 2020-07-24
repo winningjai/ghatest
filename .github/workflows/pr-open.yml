@@ -7,6 +7,7 @@ on:
       - ./**
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
+  DEPLOY: true 
 jobs:
   prequel:
     runs-on: ubuntu-latest
@@ -67,7 +68,7 @@ jobs:
         echo loc=${{ matrix.location }}
   Job12:
     needs: parser1
-    #if: parser1.envi.env.DEPLOY == 'TRUE'
+    if: needs.parser1.envi.env.DEPLOY == 'true'
     runs-on: ubuntu-latest
     steps:
      - name: Output chello
