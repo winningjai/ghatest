@@ -2,7 +2,7 @@ name:  PR open
 on:
   pull_request:
     branches: [ "one" ]
-    types: ["open"]
+    types: ["created"]
     paths:
       - ./*
 env:

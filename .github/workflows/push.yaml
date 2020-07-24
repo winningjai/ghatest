@@ -13,7 +13,7 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= github.event.pull_request
+            let pr= context.payload
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
