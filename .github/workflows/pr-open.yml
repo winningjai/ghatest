@@ -1,4 +1,4 @@
-name:  SD Helm Deploy
+name:  PR open
 on:
   pull_request:
     branches: [ one ]
