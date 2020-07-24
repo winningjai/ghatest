@@ -2,10 +2,11 @@ name: Validate on Push
 
 on:
   push:
-    branches-ignore:
+    branches:
       - master
+    types: ["closed"]
 jobs:
-   parser:
+  parser:
     # The PR title should be in the format of dev-<region>-<any text description>
     runs-on: ubuntu-latest
     outputs:
