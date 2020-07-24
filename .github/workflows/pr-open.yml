@@ -7,14 +7,16 @@ on:
 jobs:
   prequel:
     runs-on: ubuntu-latest
-     steps:
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/github-script@v1
         id: matrixer
         with:
           script: |
-            let pr= context
-            print(context)
+            let pr= context.payload.
+            return pr
+      - name: Get result
+        run: echo "${{steps.matrixer.outputs.result}}"
   parser1:
     runs-on: ubuntu-latest
     outputs:
