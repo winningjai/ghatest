@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-    types: ["closed"]
 jobs:
   parser:
     # The PR title should be in the format of dev-<region>-<any text description>
