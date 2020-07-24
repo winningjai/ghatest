@@ -1,11 +1,16 @@
 name:  PR open
 on:
   pull_request:
-    branches: [ one ]
-    types: ["open"]
-
+    branches: [ "master" ]
+    types: [ "closed" ]
+    paths:
+      - .github/workflows/*.yml
+      - ./**
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
 jobs:
   prequel:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,12 +18,14 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= context.payload.keys
+            let pr= github
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
   parser1:
+    #if: github.payload.pull_request.title.split('-')[0] == 'deploy'
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
@@ -30,7 +37,7 @@ jobs:
             let head =  context.payload.pull_request.title.split('-');
             let matrix = { 
               environment: ["dev"],
-              location:    ["westus2"]
+              location:    ["westus2", "eastus2"]
             };
             if( head != null && head[0] == 'dev' )
             {
@@ -40,16 +47,21 @@ jobs:
               }
             }
             core.setOutput('matrix',matrix);
+      - uses: actions/github-script@v1
+        id: deploy
+        with:
+          script: |
+            let deploy = true;
+            core.setOutput('deploy',deploy);
+
   Job11:
-    needs: parser
+    needs: parser1
     strategy:
-      matrix: ${{ fromJson(needs.parser.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.parser1.outputs.matrix) }}
       fail-fast: false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v1
-        id: jai
-        with:
-          script: |
-            let value = matrix.environment
-            echo "${value}"
+     - name: Output curren env-locaiton
+       run: |
+        echo env=${{ matrix.environment }}
+        echo loc=${{ matrix.location }}
