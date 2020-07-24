@@ -1,0 +1,45 @@
+name: Validate on Push
+
+on:
+  push:
+    branches-ignore:
+      - master
+jobs:
+   parser:
+    # The PR title should be in the format of dev-<region>-<any text description>
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v1
+        id: matrix
+        with:
+          script: |
+            let head =  context.payload.pull_request.title.split('-');
+            let matrix = { 
+              environment: ["dev"],
+              location:    ["westus2"]
+            };
+            if( head != null && head[0] == 'dev' )
+            {
+              matrix = {
+                environment: ["dev"],
+                location:    [head[1]]
+              }
+            }
+            core.setOutput('matrix',matrix);
+  Job1:
+    needs: parser
+    strategy:
+      matrix: ${{ fromJson(needs.parser.outputs.matrix) }}
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v1
+        id: jai
+        with:
+          script: |
+            let value = matrix.environment
+            echo "${value}"
+
