@@ -68,10 +68,10 @@ jobs:
         echo loc=${{ matrix.location }}
   Job12:
     needs: parser1
-    if: needs.parser1.envi.env.DEPLOY == 'true'
+    if: $DEPLOY == 'true'
     runs-on: ubuntu-latest
     steps:
      - name: Output chello
        run: |
         echo env= "hellow"
-        #echo jai="${{ needs.parser1.envi.env.DEPLOY }}"      
+        #echo jai= $DEPLOY     
