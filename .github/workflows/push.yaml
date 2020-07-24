@@ -14,7 +14,9 @@ jobs:
         with:
           script: |
             let pr= context
-            print(context)
+            core.setOutput('matrixe',pr);
+      - name: Get result
+  run: echo "${{steps.matrixer.outputs.matrixe}}"
   parser:
     # The PR title should be in the format of dev-<region>-<any text description>
     runs-on: ubuntu-latest
