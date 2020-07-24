@@ -7,7 +7,7 @@ on:
 jobs:
   prequel:
     runs-on: ubuntu-latest
-     steps:
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/github-script@v1
         id: matrixer
