@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: Output curren env-locaiton
-      run: |
+       run: |
         echo env=${{ matrix.environment }}
         echo loc=${{ matrix.location }}
           
