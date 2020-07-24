@@ -1,4 +1,4 @@
-name:  SD Helm Deploy
+name:  PR open
 on:
   pull_request:
     branches: [ one ]
@@ -13,7 +13,7 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= context.payload.
+            let pr= context.payload.keys
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
