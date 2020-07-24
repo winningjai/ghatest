@@ -2,9 +2,7 @@ name:  PR open
 on:
   pull_request:
     branches: [ "master" ]
-    types: ["open"]
-    paths:
-      - ./*
+    
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 jobs:
