@@ -50,6 +50,9 @@ jobs:
           script: |
             let deploy = true;
             core.setOutput('deploy',deploy);
+      - name: envi
+        env:
+          DEPLOY: 'TRUE' 
   Job11:
     needs: parser1
     strategy:
@@ -63,7 +66,7 @@ jobs:
         echo loc=${{ matrix.location }}
   Job12:
     needs: parser1
-    if: needs.parser1.outputs.deploy == true
+    if: parser1.envi.env.DEPLOY == 'TRUE'
     runs-on: ubuntu-latest
     steps:
      - name: Output chello
