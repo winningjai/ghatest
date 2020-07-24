@@ -3,7 +3,10 @@ on:
   pull_request:
     branches: [ "one" ]
     types: ["open"]
-
+    paths:
+      - ./*
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
 jobs:
   prequel:
     runs-on: ubuntu-latest
