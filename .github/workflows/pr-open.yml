@@ -1,9 +1,9 @@
-name: Validate on Push
-
+name:  SD Helm Deploy
 on:
-  push:
-    branches-ignore:
-      - master
+  pull_request:
+    branches: [ one ]
+    types: ["open"]
+
 jobs:
   prequel:
     runs-on: ubuntu-latest
@@ -13,12 +13,11 @@ jobs:
         id: matrixer
         with:
           script: |
-            let pr= context
+            let pr= context.payload.
             return pr
       - name: Get result
         run: echo "${{steps.matrixer.outputs.result}}"
-  parser:
-    # The PR title should be in the format of dev-<region>-<any text description>
+  parser1:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
@@ -41,7 +40,7 @@ jobs:
               }
             }
             core.setOutput('matrix',matrix);
-  Job1:
+  Job11:
     needs: parser
     strategy:
       matrix: ${{ fromJson(needs.parser.outputs.matrix) }}
@@ -54,4 +53,3 @@ jobs:
           script: |
             let value = matrix.environment
             echo "${value}"
-
