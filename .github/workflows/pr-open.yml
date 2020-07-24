@@ -2,7 +2,9 @@ name:  PR open
 on:
   pull_request:
     branches: [ "master" ]
-    
+      paths:
+      - .github/workflows/*.yml
+      - ./**
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 jobs:
