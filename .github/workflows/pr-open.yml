@@ -2,7 +2,7 @@ name:  PR open
 on:
   pull_request:
     branches: [ "master" ]
-      paths:
+    paths:
       - .github/workflows/*.yml
       - ./**
 env:
