@@ -2,7 +2,6 @@ name:  PR open
 on:
   pull_request:
     branches: [ "master" ]
-    types: [ "closed" ]
     paths:
       - .github/workflows/*.yml
       - ./**
@@ -47,12 +46,6 @@ jobs:
               }
             }
             core.setOutput('matrix',matrix);
-      - uses: actions/github-script@v1
-        id: deploy
-        with:
-          script: |
-            let deploy = true;
-            core.setOutput('deploy',deploy);
 
   Job11:
     needs: parser1
@@ -65,3 +58,10 @@ jobs:
        run: |
         echo env=${{ matrix.environment }}
         echo loc=${{ matrix.location }}
+  Job2:
+    needs: parser1
+    runs-on: ubuntu-latest
+    steps:
+     - name: Output curren env-locaiton
+       run: |
+        echo env="jai"   
