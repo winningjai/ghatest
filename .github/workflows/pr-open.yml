@@ -36,7 +36,7 @@ jobs:
               environment: ["dev"],
               location:    ["westus2", "eastus2"]
             };
-            echo matrix.location.includes("eastus2")
+            echo matrix.location
             if( head != null && head[0] == 'dev' )
             {
               matrix = {
