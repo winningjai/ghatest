@@ -36,15 +36,16 @@ jobs:
               environment: ["dev"],
               location:    ["westus2", "eastus2"]
             };
+            var n = matrix.location.includes(head[1]
             if( head != null && head[0] == 'dev' )
             {
-            if(matrix.location.includes(head[1])
-            {
-              matrix = {
-                environment: ["dev"],
-                location:    [head[1]]
-              }
-            }
+              if(n)
+              {
+                matrix = {
+                  environment: ["dev"],
+                  location:    [head[1]]
+                }
+             }
             }
             core.setOutput('matrix',matrix);
 
