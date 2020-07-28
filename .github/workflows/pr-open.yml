@@ -37,7 +37,7 @@ jobs:
               location:    ["westus2", "eastus2"]
             };
             var n = matrix.location.includes(head[1]);
-            echo env=${{ n }}
+            echo env= n
             if( head != null && head[0] == 'dev' )
             {
               if(n)
