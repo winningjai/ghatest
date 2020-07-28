@@ -34,10 +34,9 @@ jobs:
             let head =  context.payload.pull_request.title.split('-');
             let matrix = { 
               environment: ["dev"],
-              location:    ["westus2", "eastus2"]
+              location:    ["westus2", "eastus2", "One"]
             };
             var n = matrix.location.includes(head[1]);
-            echo env= n
             if( head != null && head[0] == 'dev' )
             {
               if(n)
